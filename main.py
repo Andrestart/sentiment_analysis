@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    readme_file = open("README.md", "r")
+    readme_file = open("infoapi.md", "r")
     md_template = markdown.markdown(readme_file.read(), extensions = ["fenced_code"])
     return md_template
 
@@ -18,27 +18,41 @@ def characters():
     everyone = sql.characters()
     return everyone
 
+@app.route("/episodes")
+def epi():
+    allepisodes = sql.episodes()
+    return allepisodes
+
 @app.route("/dialogue/<name>")
 def todas(name):
     person = name
-    frases = sql.todas_frases(person)
+    frases = sql.alldialogues(person)
     return frases
 
 @app.route("/newdialogue", methods=["POST"])
-def insertamensaje():
+def insertdialogue():
         dialogue = request.form.get("dialogue")
         char_ = request.form.get("char")
         episode = request.form.get("episode")
 
         return sql.newdialogue(dialogue, char_,episode)
     
-@app.route("/sent/<name>")
-def ie(name):
-    person = name
-    dialogues = sql.toblob(person)
+@app.route("/dialogue/<name>/sent")
+def blob(name):
+    dialogues = sql.toblob(name)
     blob = TextBlob(dialogues)
     return str(blob.sentiment)
 
+@app.route("/all/sent")
+def allblob():
+    dialogues = sql.alltoblob()
+    blob = TextBlob(dialogues)
+    return str(blob.sentiment)
+
+@app.route("/dialogues")
+def dia():
+    all = sql.alltoblob()
+    return all
 
 
 app.run(debug=True)

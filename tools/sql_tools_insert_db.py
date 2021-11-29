@@ -3,6 +3,9 @@ import pandas as pd
 from textblob import TextBlob
 
 def change(x):
+    """
+    It cleans the dataframe deleting the ", ', / and \\.
+    """
     x = str(x).replace('"', " ")
     x = str(x).replace("'", " ")
     x = str(x).replace("/", "")
@@ -13,8 +16,7 @@ def change(x):
 
 def check(this,string):
     """
-    Función parametrizada que comprueba en cada tabla si existe el user, artista o canción.
-    Devuelve True si existe y False si no
+    This funtion checks if the character and the episode exists, returning True if it does or False if it doesn't.
     """
     if this == "char":
         query = list(c.engine.execute(f"SELECT `name char` FROM `char` WHERE `name char` = '{string}'"))
@@ -35,6 +37,9 @@ def check(this,string):
 
 
 def char(string):
+    """
+    First it checks if the character exists using the function "check", and then it inserts the character.
+    """
     if check("char", string):
         return "This character is already in your table"
     else:
@@ -42,6 +47,9 @@ def char(string):
 
 
 def episode(string):
+    """
+    First it checks if the episode exists using the function "check", and then it inserts the episode.
+    """
     if check("episode", string):
         return "This episode is already in your table"
     else:
@@ -50,7 +58,7 @@ def episode(string):
 
 def giveid(this,string):
     """
-    Devuelve el ID de lo que le pidamos sabiendo que ese elemento EXISTE
+    It returns the ID from a character name or from an episode name.
     """
     if this == "char":
         return list(c.engine.execute(f"SELECT `idchar` FROM `char` WHERE `name char` ='{string}';"))[0][0]
@@ -59,6 +67,9 @@ def giveid(this,string):
 
 
 def dialogue(row):
+    """
+    It inserts every dialogue, the character ID from the character who speaks, and the episode ID from the episode that corresponds to the dialogue.
+    """
     if check("dialogue", row['dialogue']):
         if check("char", row['char']):
             idchar = giveid("char",row['char'])

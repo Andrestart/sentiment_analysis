@@ -1,4 +1,5 @@
 .env
 .ipynb_checkpoints
 __pycache__
-tables
+sw/
+notebooks/2_sql_insert__.ipynb
