@@ -1,6 +1,8 @@
 # Sentiment analysis project
 
-The objective of this project is making an API that filters a previously created database in SQL. This database has been downloaded from Kaggle and then, it has been cleaned and prepared for inserting the data to create a database in SQL.
+The objective of this project is making an API that filters a previously created database in SQL. This database has been downloaded from Kaggle and then, it has been cleaned and prepared for inserting the data to create a database in SQL. You can see below the schema I made in SQL.
+
+[SQL database schema](https://github.com/Andrestart/sentiment_analysis/blob/main/schema.PNG)
 
 After creating the database, I have created the API that filters that database. This way, we can get only what a character says and also their sentiment analysis, that provides how positive and how subjective the speech is, ranging from -1 to 1.
 
